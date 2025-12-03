@@ -242,7 +242,7 @@ export default function Home() {
         <div className="noise-overlay" />
       </motion.div>
 
-      <main
+      <motion.main
         className="mx-auto flex min-h-screen max-w-6xl flex-col gap-20 px-4 py-8 pb-28 sm:px-6 sm:py-10 sm:gap-24 md:px-10 lg:px-16 lg:gap-32"
         style={{ y: mainParallaxY }}
       >
@@ -611,7 +611,7 @@ export default function Home() {
             </motion.div>
           </div>
         </RevealSection>
-      </main>
+      </motion.main>
 
       <SocialRail />
     </motion.div>
