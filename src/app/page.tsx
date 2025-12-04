@@ -1,12 +1,16 @@
 "use client";
 
-import type React from "react";
-import type { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useTransform, useScroll } from "framer-motion";
-import type { IconType } from "react-icons";
-import { FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { IconType } from "react-icons";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+} from "react-icons/fa";
 import {
   SiCss3,
   SiFigma,
@@ -79,24 +83,41 @@ type Skill = {
   label: string;
   value: number;
   Icon: IconType;
-  accent:
-    | "html"
-    | "css"
-    | "js"
-    | "react"
-    | "tailwind"
-    | "figma"
-    | "default";
+  accent: "html" | "css" | "js" | "react" | "tailwind" | "figma" | "default";
 };
 
 const SKILLS: Skill[] = [
   { id: "html", label: "HTML", value: 95, Icon: SiHtml5, accent: "html" },
   { id: "css", label: "CSS", value: 94, Icon: SiCss3, accent: "css" },
-  { id: "javascript", label: "JavaScript", value: 92, Icon: SiJavascript, accent: "js" },
+  {
+    id: "javascript",
+    label: "JavaScript",
+    value: 92,
+    Icon: SiJavascript,
+    accent: "js",
+  },
   { id: "react", label: "React", value: 91, Icon: SiReact, accent: "react" },
-  { id: "tailwind", label: "TailwindCSS", value: 93, Icon: SiTailwindcss, accent: "tailwind" },
-  { id: "web-dev", label: "Web Development", value: 96, Icon: SiHtml5, accent: "default" },
-  { id: "uiux", label: "UI/UX Design", value: 94, Icon: SiFigma, accent: "figma" },
+  {
+    id: "tailwind",
+    label: "TailwindCSS",
+    value: 93,
+    Icon: SiTailwindcss,
+    accent: "tailwind",
+  },
+  {
+    id: "web-dev",
+    label: "Web Development",
+    value: 96,
+    Icon: SiHtml5,
+    accent: "default",
+  },
+  {
+    id: "uiux",
+    label: "UI/UX Design",
+    value: 94,
+    Icon: SiFigma,
+    accent: "figma",
+  },
 ];
 
 type SocialAccent = "blue" | "pink" | "teal" | "green";
@@ -113,8 +134,7 @@ const SOCIAL_LINKS: SocialLink[] = [
   {
     id: "linkedin",
     label: "LinkedIn",
-    href:
-      "https://www.linkedin.com/in/deekshith-g-594b8434b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    href: "https://www.linkedin.com/in/deekshith-g-594b8434b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     accent: "blue",
     Icon: FaLinkedinIn,
   },
@@ -156,13 +176,21 @@ function SocialRail() {
             aria-label={link.label}
             initial={{ opacity: 0, y: 16, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.45, delay: 0.4 + index * 0.06, ease: [0.22, 0.74, 0.41, 0.96] }}
+            transition={{
+              duration: 0.45,
+              delay: 0.4 + index * 0.06,
+              ease: [0.22, 0.74, 0.41, 0.96],
+            }}
             whileHover={{ y: -6, scale: 1.08 }}
             whileTap={{ scale: 0.96 }}
           >
             <span className="social-icon-ring" />
             <span className="social-icon-core">
-              <Icon className="social-icon-svg" aria-hidden="true" focusable="false" />
+              <Icon
+                className="social-icon-svg"
+                aria-hidden="true"
+                focusable="false"
+              />
             </span>
           </motion.a>
         );
@@ -172,6 +200,16 @@ function SocialRail() {
 }
 
 function TopNav() {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <motion.nav
       className="fixed inset-x-0 top-3 z-40 flex justify-center px-4"
@@ -179,7 +217,20 @@ function TopNav() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 0.74, 0.41, 0.96] }}
     >
-      <div className="flex w-full max-w-xl translate-x-4 items-center justify-between rounded-2xl border border-slate-800/80 bg-slate-950/70 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-slate-300 shadow-[0_14px_40px_rgba(15,23,42,0.9)] backdrop-blur">
+      <motion.div
+        className="flex w-full max-w-xl translate-x-4 items-center justify-between rounded-2xl border px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-slate-300 backdrop-blur transition-all duration-300"
+        animate={{
+          borderColor: scrolled
+            ? "rgba(34, 211, 238, 0.4)"
+            : "rgba(30, 41, 59, 0.8)",
+          backgroundColor: scrolled
+            ? "rgba(2, 6, 23, 0.9)"
+            : "rgba(2, 6, 23, 0.7)",
+          boxShadow: scrolled
+            ? "0 14px 40px rgba(15,23,42,0.9), 0 0 30px rgba(34,211,238,0.2)"
+            : "0 14px 40px rgba(15,23,42,0.9)",
+        }}
+      >
         <span className="text-[0.7rem] font-semibold tracking-[0.26em] text-slate-100">
           DEEKSHITH G
         </span>
@@ -197,16 +248,24 @@ function TopNav() {
             Contact
           </a>
         </div>
-      </div>
+      </motion.div>
     </motion.nav>
   );
 }
 
 export default function Home() {
-  const [showContactIcons, setShowContactIcons] = useState(false);
-  const contactIconsRef = useRef<HTMLDivElement | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // mouse-follow parallax for hero and background aura
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
 
@@ -215,17 +274,23 @@ export default function Home() {
   const orbitTranslateX = useTransform(tiltX, [-0.5, 0.5], [-10, 10]);
   const orbitTranslateY = useTransform(tiltY, [-0.5, 0.5], [10, -10]);
 
-  // scroll-based parallax for whole UI
   const { scrollYProgress } = useScroll();
   const mainParallaxY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const backgroundParallaxY = useTransform(scrollYProgress, [0, 1], [0, 40]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 500);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width; // 0-1
-    const y = (event.clientY - rect.top) / rect.height; // 0-1
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
 
-    // center around 0
     tiltX.set(x - 0.5);
     tiltY.set(y - 0.5);
   };
@@ -235,21 +300,52 @@ export default function Home() {
     tiltY.set(0);
   };
 
-  const handleContactCtaClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    setShowContactIcons(true);
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
-    // Wait for state to apply, then scroll to the icons row
-    requestAnimationFrame(() => {
-      if (contactIconsRef.current) {
-        contactIconsRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
-    });
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: Record<string, string> = {};
+
+    if (!formData.name.trim()) errors.name = "Name is required";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!validateEmail(formData.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!formData.subject.trim()) errors.subject = "Subject is required";
+    if (!formData.message.trim()) errors.message = "Message is required";
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    // Open Typeform with pre-filled data
+    const typeformUrl = `https://form.typeform.com/to/BvIYBW81#name=${encodeURIComponent(
+      formData.name
+    )}&email=${encodeURIComponent(formData.email)}&subject=${encodeURIComponent(
+      formData.subject
+    )}&message=${encodeURIComponent(formData.message)}`;
+
+    window.open(typeformUrl, "_blank");
+
+    // Show success message
+    setSubmitStatus("success");
+    setFormData({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setSubmitStatus("idle"), 5000);
   };
 
   return (
@@ -258,8 +354,11 @@ export default function Home() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-sky-500 z-50 origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
       <TopNav />
-      {/* Neon background orbits */}
       <motion.div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
@@ -278,7 +377,6 @@ export default function Home() {
         className="mx-auto flex min-h-screen max-w-6xl flex-col gap-20 px-4 pt-28 pb-28 sm:px-6 sm:pt-32 sm:pb-28 sm:gap-24 md:px-10 lg:px-16 lg:gap-32"
         style={{ y: mainParallaxY }}
       >
-        {/* Top nav / identity */}
         <header className="flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-500 shadow-[0_0_40px_rgba(56,189,248,0.75)]" />
@@ -286,13 +384,13 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300/80">
                 Portfolio
               </p>
-              <p className="text-sm text-slate-400">High-end cinematic presentation</p>
+              <p className="text-sm text-slate-400">
+                High-end cinematic presentation
+              </p>
             </div>
           </div>
-
         </header>
 
-        {/* Intro / hero */}
         <RevealSection id="intro" className="section-grid">
           <div className="space-y-8">
             <p className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-slate-900/60 px-4 py-1 text-[0.7rem] font-medium tracking-[0.25em] text-cyan-200/80 backdrop-blur">
@@ -332,9 +430,9 @@ export default function Home() {
                 Futuristic Portfolio of Deekshith G
               </h1>
               <p className="max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base">
-                A modern, neon-lit portfolio for a 2nd year BE student focused on
-                front-end development and UI/UX design — fast-paced motion, bold type, and
-                clean layouts built for the web.
+                A modern, neon-lit portfolio for a 2nd year BE student focused
+                on front-end development and UI/UX design — fast-paced motion,
+                bold type, and clean layouts built for the web.
               </p>
             </div>
 
@@ -357,23 +455,32 @@ export default function Home() {
 
             <div className="mt-4 grid max-w-xl grid-cols-2 gap-4 text-xs text-slate-400 sm:grid-cols-3">
               <div className="stat-pill">
-                <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Focus</p>
-                <p className="text-sm font-semibold text-slate-100">Cinematic UX</p>
+                <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">
+                  Focus
+                </p>
+                <p className="text-sm font-semibold text-slate-100">
+                  Cinematic UX
+                </p>
               </div>
               <div className="stat-pill">
                 <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">
                   Motion
                 </p>
-                <p className="text-sm font-semibold text-slate-100">Parallax • Zoom • Glitch</p>
+                <p className="text-sm font-semibold text-slate-100">
+                  Parallax • Zoom • Glitch
+                </p>
               </div>
               <div className="stat-pill sm:col-span-1">
-                <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Style</p>
-                <p className="text-sm font-semibold text-slate-100">Dark • Neon • Minimal</p>
+                <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">
+                  Style
+                </p>
+                <p className="text-sm font-semibold text-slate-100">
+                  Dark • Neon • Minimal
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Hero motion frame */}
           <motion.div
             className="relative mt-10 flex items-center justify-center md:mt-0"
             style={{ rotateX: heroRotateX, rotateY: heroRotateY }}
@@ -397,9 +504,18 @@ export default function Home() {
                         Adaptive Portfolio Modes
                       </p>
                       <ul className="space-y-1 text-[0.65rem] text-slate-300">
-                        <li>• Design: Mockups with animated overlays &amp; neon accents</li>
-                        <li>• Video: Cinematic cuts, captions &amp; glitch transitions</li>
-                        <li>• Development: Animated UI previews, code &amp; 3D elements</li>
+                        <li>
+                          • Design: Mockups with animated overlays &amp; neon
+                          accents
+                        </li>
+                        <li>
+                          • Video: Cinematic cuts, captions &amp; glitch
+                          transitions
+                        </li>
+                        <li>
+                          • Development: Animated UI previews, code &amp; 3D
+                          elements
+                        </li>
                       </ul>
                     </div>
                     <div className="mt-4 h-[2px] w-full overflow-hidden rounded-full bg-slate-800">
@@ -428,7 +544,6 @@ export default function Home() {
           </motion.div>
         </RevealSection>
 
-        {/* Projects */}
         <RevealSection id="projects" className="space-y-10">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -440,9 +555,9 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-slate-400">
-              Each project tile is treated like a cinematic shot — layered depth,
-              parallax hover states, and smooth zoom-ins that keep the experience
-              fast-paced yet legible.
+              Each project tile is treated like a cinematic shot — layered
+              depth, parallax hover states, and smooth zoom-ins that keep the
+              experience fast-paced yet legible.
             </p>
           </div>
 
@@ -454,7 +569,11 @@ export default function Home() {
                 initial={{ opacity: 0, y: 24, scale: 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.65, delay: index * 0.08, ease: [0.2, 0.7, 0.4, 1] }}
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  ease: [0.2, 0.7, 0.4, 1],
+                }}
                 whileHover={{ y: -6, scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -470,7 +589,6 @@ export default function Home() {
           </div>
         </RevealSection>
 
-        {/* Skills / capabilities */}
         <RevealSection id="skills" className="space-y-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -482,8 +600,8 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-slate-400">
-              Core web skills visualised as neon, high-precision meters — ideal for a
-              fast-moving, cinematic portfolio.
+              Core web skills visualised as neon, high-precision meters — ideal
+              for a fast-moving, cinematic portfolio.
             </p>
           </div>
 
@@ -502,13 +620,23 @@ export default function Home() {
                       initial={{ opacity: 0, y: 20, scale: 0.96 }}
                       whileInView={{ opacity: 1, y: 0, scale: 1 }}
                       viewport={{ once: true, amount: 0.3 }}
-                      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.2, 0.7, 0.4, 1] }}
+                      transition={{
+                        duration: 0.55,
+                        delay: index * 0.06,
+                        ease: [0.2, 0.7, 0.4, 1],
+                      }}
                       whileHover={{ y: -4, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex h-full flex-col items-center justify-between gap-3 text-center">
-                        <span className={`skill-icon-wrap skill-icon-wrap-${skill.accent}`}>
-                          <Icon className="skill-icon" aria-hidden="true" focusable="false" />
+                        <span
+                          className={`skill-icon-wrap skill-icon-wrap-${skill.accent}`}
+                        >
+                          <Icon
+                            className="skill-icon"
+                            aria-hidden="true"
+                            focusable="false"
+                          />
                         </span>
                         <p className="skill-percentage">{skill.value}%</p>
                         <div className="skill-meter w-full max-w-[7.5rem]">
@@ -527,96 +655,267 @@ export default function Home() {
           </div>
         </RevealSection>
 
-        {/* Contact / outro */}
         <RevealSection id="contact" className="pb-12">
-          {/* Animated divider separating this section */}
-          <div className="mb-6 flex justify-center">
-            <div className="h-px w-24 rounded-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-transparent opacity-70 animate-pulse" />
+          <div className="mb-10 flex justify-center">
+            <div className="h-px w-32 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-70 animate-pulse" />
           </div>
 
-          <div className="relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-r from-fuchsia-600/40 via-slate-950 to-sky-500/40 p-[1px]">
+          <div className="mb-8 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300/80">
+              Get in Touch
+            </p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-50 md:text-4xl">
+              Let&apos;s Connect
+            </h2>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-2">
             <motion.div
-              className="relative flex flex-col gap-8 rounded-[1.4rem] bg-slate-950/85 px-6 py-8 backdrop-blur-xl md:flex-row md:items-center md:justify-between md:px-10"
-              initial={{ opacity: 0, y: 30, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.75, ease: [0.2, 0.7, 0.4, 1] }}
+              className="cyber-glass-card space-y-6"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="max-w-lg">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-fuchsia-300/80">
-                  Next Sequence
+              <h3 className="cyber-heading">CONTACT INFO</h3>
+
+              <div className="space-y-4">
+                <div className="contact-info-item">
+                  <div className="contact-icon-wrapper">
+                    <svg
+                      className="contact-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="contact-label">EMAIL</p>
+                    <a
+                      href="mailto:deekshudevang@gmail.com"
+                      className="contact-value"
+                    >
+                      deekshudevang@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="contact-info-item">
+                  <div className="contact-icon-wrapper">
+                    <svg
+                      className="contact-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="contact-label">PHONE</p>
+                    <a href="tel:+919449668850" className="contact-value">
+                      +91 94496 68850
+                    </a>
+                  </div>
+                </div>
+
+                <div className="contact-info-item">
+                  <div className="contact-icon-wrapper">
+                    <svg
+                      className="contact-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="contact-label">WEBSITE</p>
+                    <a
+                      href="https://www.deekshudevang.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-value"
+                    >
+                      www.deekshudevang.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-xl border border-cyan-500/20 bg-slate-950/40 p-4">
+                <p className="text-xs text-cyan-300/70">
+                  <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-400 mr-2" />
+                  I reply within 24–48 hours.
                 </p>
-                <h2 className="mt-3 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl md:text-[1.6rem]">
-                  Ready to turn this into your personal portfolio?
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                  Plug in your own projects, replace the copy with your story, and this layout
-                  becomes a cinematic portfolio tailored to design, video, or development work.
-                </p>
               </div>
 
-              <div className="flex flex-col items-start gap-3 text-xs md:items-end md:text-right">
-                <a
-                  href="#contact-icons"
-                  onClick={handleContactCtaClick}
-                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-400 via-pink-500 to-sky-500 px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-950 shadow-[0_0_40px_rgba(236,72,153,0.9)] transition-transform duration-300 hover:-translate-y-0.5"
+              <div className="mt-6">
+                <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  Connect on Social
+                </h4>
+                <div className="flex flex-wrap gap-3">
+                  {SOCIAL_LINKS.map((link) => {
+                    const Icon = link.Icon;
+                    return (
+                      <a
+                        key={`contact-social-${link.id}`}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`contact-social-link contact-social-link-${link.accent}`}
+                        aria-label={link.label}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="cyber-glass-card"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="cyber-heading mb-6">SEND MESSAGE</h3>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="YOUR NAME"
+                    className={`cyber-input ${
+                      formErrors.name ? "cyber-input-error" : ""
+                    }`}
+                  />
+                  {formErrors.name && (
+                    <p className="cyber-error">{formErrors.name}</p>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="YOUR EMAIL"
+                    className={`cyber-input ${
+                      formErrors.email ? "cyber-input-error" : ""
+                    }`}
+                  />
+                  {formErrors.email && (
+                    <p className="cyber-error">{formErrors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="SUBJECT"
+                    className={`cyber-input ${
+                      formErrors.subject ? "cyber-input-error" : ""
+                    }`}
+                  />
+                  {formErrors.subject && (
+                    <p className="cyber-error">{formErrors.subject}</p>
+                  )}
+                </div>
+
+                <div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="YOUR MESSAGE"
+                    rows={5}
+                    className={`cyber-input resize-none ${
+                      formErrors.message ? "cyber-input-error" : ""
+                    }`}
+                  />
+                  {formErrors.message && (
+                    <p className="cyber-error">{formErrors.message}</p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className={`cyber-button ${
+                    submitStatus === "success"
+                      ? "cyber-button-success"
+                      : submitStatus === "error"
+                      ? "cyber-button-error"
+                      : ""
+                  }`}
                 >
-                  CONTACT ME
-                  <span className="inline-block h-[3px] w-8 origin-left rounded-full bg-slate-900/80 transition-transform duration-300 group-hover:scale-x-125" />
-                </a>
-                <motion.p
-                  className="text-[0.68rem] text-slate-400"
-                  initial={{ opacity: 0, y: 4 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.7 }}
-                  transition={{ duration: 0.5, delay: 0.1, ease: [0.2, 0.7, 0.4, 1] }}
-                >
-                  Tap the button to reveal direct social links.
-                </motion.p>
-              </div>
-
-              <div
-                id="contact-icons"
-                ref={contactIconsRef}
-                className="mt-6 w-full"
-              >
-                {showContactIcons && (
-                  <motion.div
-                    className="contact-icons-row"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.55, ease: [0.2, 0.7, 0.4, 1] }}
-                  >
-                    {SOCIAL_LINKS.map((link) => {
-                      const Icon = link.Icon;
-                      return (
-                        <a
-                          key={`contact-${link.id}`}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`contact-social-icon contact-social-icon-${link.accent}`}
-                          aria-label={link.label}
-                        >
-                          <Icon
-                            className="contact-social-icon-svg"
-                            aria-hidden="true"
-                            focusable="false"
-                          />
-                        </a>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="pointer-events-none absolute -right-10 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-fuchsia-500/40 via-sky-400/20 to-transparent blur-3xl" />
+                  {submitStatus === "success"
+                    ? "OPENING TYPEFORM..."
+                    : submitStatus === "error"
+                    ? "ERROR — TRY AGAIN"
+                    : "SEND MESSAGE"}
+                </button>
+              </form>
             </motion.div>
           </div>
         </RevealSection>
       </motion.main>
 
       <SocialRail />
+
+      <motion.button
+        className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-cyan-400/40 bg-slate-950/80 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400 hover:bg-slate-900/90 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] md:bottom-8 md:right-8"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{
+          opacity: showBackToTop ? 1 : 0,
+          scale: showBackToTop ? 1 : 0,
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+      >
+        <svg
+          className="h-5 w-5 text-cyan-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          />
+        </svg>
+      </motion.button>
     </motion.div>
   );
 }

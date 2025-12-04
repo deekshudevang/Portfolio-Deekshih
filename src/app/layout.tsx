@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,8 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Deekshith G — Portfolio",
-  description:
-    "Cinematic portfolio of Deekshith G with bold typography, neon motion, and interactive case studies.",
+  description: "Portfolio of Deekshith G - Frontend Developer & UI/UX Designer",
 };
 
 export default function RootLayout({

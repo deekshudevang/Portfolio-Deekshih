@@ -1,6 +1,6 @@
-export type PortfolioProjectAccent = "teal" | "pink" | "blue";
+type PortfolioProjectAccent = "teal" | "pink" | "blue";
 
-export type PortfolioProject = {
+type PortfolioProject = {
   id: string;
   category: string;
   title: string;
