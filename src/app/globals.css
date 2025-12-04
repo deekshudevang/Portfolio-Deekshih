@@ -522,6 +522,22 @@ body {
   animation: skill-meter-in 620ms cubic-bezier(0.23, 0.74, 0.41, 0.96) forwards;
 }
 
+.skill-percentage {
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #e5e7eb;
+  text-shadow: 0 0 22px rgba(56, 189, 248, 0.8);
+}
+
+.skill-label {
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(148, 163, 184, 0.95);
+}
+
 @keyframes skill-meter-in {
   0% {
     transform: scaleX(0.2);

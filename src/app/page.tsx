@@ -171,6 +171,37 @@ function SocialRail() {
   );
 }
 
+function TopNav() {
+  return (
+    <motion.nav
+      className="fixed inset-x-0 top-3 z-40 flex justify-center px-4"
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 0.74, 0.41, 0.96] }}
+    >
+      <div className="flex w-full max-w-xl translate-x-4 items-center justify-between rounded-2xl border border-slate-800/80 bg-slate-950/70 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-slate-300 shadow-[0_14px_40px_rgba(15,23,42,0.9)] backdrop-blur">
+        <span className="text-[0.7rem] font-semibold tracking-[0.26em] text-slate-100">
+          DEEKSHITH G
+        </span>
+        <div className="ml-4 flex flex-1 items-center justify-end gap-4 sm:gap-6">
+          <a href="#intro" className="nav-link">
+            Intro
+          </a>
+          <a href="#projects" className="nav-link">
+            Projects
+          </a>
+          <a href="#skills" className="nav-link">
+            Skills
+          </a>
+          <a href="#contact" className="nav-link">
+            Contact
+          </a>
+        </div>
+      </div>
+    </motion.nav>
+  );
+}
+
 export default function Home() {
   const [showContactIcons, setShowContactIcons] = useState(false);
   const contactIconsRef = useRef<HTMLDivElement | null>(null);
@@ -227,6 +258,7 @@ export default function Home() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      <TopNav />
       {/* Neon background orbits */}
       <motion.div
         className="pointer-events-none absolute inset-0 -z-10"
@@ -243,7 +275,7 @@ export default function Home() {
       </motion.div>
 
       <motion.main
-        className="mx-auto flex min-h-screen max-w-6xl flex-col gap-20 px-4 py-8 pb-28 sm:px-6 sm:py-10 sm:gap-24 md:px-10 lg:px-16 lg:gap-32"
+        className="mx-auto flex min-h-screen max-w-6xl flex-col gap-20 px-4 pt-28 pb-28 sm:px-6 sm:pt-32 sm:pb-28 sm:gap-24 md:px-10 lg:px-16 lg:gap-32"
         style={{ y: mainParallaxY }}
       >
         {/* Top nav / identity */}
@@ -258,20 +290,6 @@ export default function Home() {
             </div>
           </div>
 
-          <nav className="hidden gap-6 text-xs font-medium uppercase tracking-[0.24em] text-slate-400 md:flex">
-            <a href="#intro" className="nav-link">
-              Intro
-            </a>
-            <a href="#projects" className="nav-link">
-              Projects
-            </a>
-            <a href="#skills" className="nav-link">
-              Skills
-            </a>
-            <a href="#contact" className="nav-link">
-              Contact
-            </a>
-          </nav>
         </header>
 
         {/* Intro / hero */}
@@ -460,7 +478,7 @@ export default function Home() {
                 Skills
               </p>
               <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl">
-                Frontend &amp; UI/UX Stack
+                Frontend &amp; UI/UX Stack - Core Skills
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-slate-400">
@@ -469,7 +487,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-[1.3fr,1fr]">
+          <div className="grid gap-6">
             <div className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-6 shadow-[0_0_40px_rgba(15,23,42,0.9)] backdrop-blur">
               <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-300">
                 Core Skills
@@ -488,88 +506,73 @@ export default function Home() {
                       whileHover={{ y: -4, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className={`skill-icon-wrap skill-icon-wrap-${skill.accent}`}>
-                            <Icon className="skill-icon" aria-hidden="true" focusable="false" />
-                          </span>
-                          <span className="text-[0.7rem] uppercase tracking-[0.22em] text-slate-300">
-                            {skill.label}
-                          </span>
+                      <div className="flex h-full flex-col items-center justify-between gap-3 text-center">
+                        <span className={`skill-icon-wrap skill-icon-wrap-${skill.accent}`}>
+                          <Icon className="skill-icon" aria-hidden="true" focusable="false" />
+                        </span>
+                        <p className="skill-percentage">{skill.value}%</p>
+                        <div className="skill-meter w-full max-w-[7.5rem]">
+                          <div
+                            className="skill-meter-fill"
+                            style={{ width: `${skill.value}%` }}
+                          />
                         </div>
-                        <span className="text-[0.7rem] text-slate-200">{skill.value}%</span>
-                      </div>
-                      <div className="skill-meter">
-                        <div
-                          className="skill-meter-fill"
-                          style={{ width: `${skill.value}%` }}
-                        />
+                        <p className="skill-label">{skill.label}</p>
                       </div>
                     </motion.li>
                   );
                 })}
               </ul>
             </div>
-
-            <div className="flex flex-col gap-4 text-xs">
-              <div className="rounded-2xl border border-fuchsia-500/40 bg-slate-950/70 p-4 shadow-[0_0_24px_rgba(236,72,153,0.6)]">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-fuchsia-200">
-                  Profile
-                </p>
-                <p className="mt-2 text-slate-200">
-                  2nd year BE student building cinematic, responsive web experiences with
-                  a focus on clean UI, strong typography, and smooth motion.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-cyan-500/40 bg-slate-950/70 p-4 shadow-[0_0_24px_rgba(34,211,238,0.6)]">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-cyan-200">
-                  Focus Areas
-                </p>
-                <p className="mt-2 text-slate-200">
-                  Modern front-end stacks (React, TailwindCSS), portfolio experiences,
-                  and UI/UX design that feels like a high-end digital product.
-                </p>
-              </div>
-            </div>
           </div>
         </RevealSection>
 
         {/* Contact / outro */}
-        <RevealSection id="contact" className="pb-10">
-          <div className="relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-[1px]">
+        <RevealSection id="contact" className="pb-12">
+          {/* Animated divider separating this section */}
+          <div className="mb-6 flex justify-center">
+            <div className="h-px w-24 rounded-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-transparent opacity-70 animate-pulse" />
+          </div>
+
+          <div className="relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-r from-fuchsia-600/40 via-slate-950 to-sky-500/40 p-[1px]">
             <motion.div
-              className="relative flex flex-col gap-6 rounded-[1.4rem] bg-slate-950/90 px-6 py-8 backdrop-blur md:flex-row md:items-center md:justify-between md:px-10"
+              className="relative flex flex-col gap-8 rounded-[1.4rem] bg-slate-950/85 px-6 py-8 backdrop-blur-xl md:flex-row md:items-center md:justify-between md:px-10"
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.75, ease: [0.2, 0.7, 0.4, 1] }}
             >
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/80">
+              <div className="max-w-lg">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-fuchsia-300/80">
                   Next Sequence
                 </p>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight text-slate-50 md:text-2xl">
+                <h2 className="mt-3 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl md:text-[1.6rem]">
                   Ready to turn this into your personal portfolio?
                 </h2>
-                <p className="mt-2 max-w-md text-xs leading-relaxed text-slate-400">
-                  Plug in your own projects, replace the copy with your story, and this
-                  layout becomes a cinematic portfolio tailored to design, video, or
-                  development work.
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                  Plug in your own projects, replace the copy with your story, and this layout
+                  becomes a cinematic portfolio tailored to design, video, or development work.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 text-xs md:items-end">
+              <div className="flex flex-col items-start gap-3 text-xs md:items-end md:text-right">
                 <a
                   href="#contact-icons"
                   onClick={handleContactCtaClick}
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-400 via-rose-500 to-sky-500 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.25em] text-slate-950 shadow-[0_0_40px_rgba(248,113,113,0.9)] transition-transform duration-300 hover:-translate-y-0.5"
+                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-400 via-pink-500 to-sky-500 px-6 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-slate-950 shadow-[0_0_40px_rgba(236,72,153,0.9)] transition-transform duration-300 hover:-translate-y-0.5"
                 >
-                  Contact Me
-                  <span className="inline-block h-[3px] w-6 rounded-full bg-slate-900/80" />
+                  CONTACT ME
+                  <span className="inline-block h-[3px] w-8 origin-left rounded-full bg-slate-900/80 transition-transform duration-300 group-hover:scale-x-125" />
                 </a>
-                <p className="text-[0.65rem] text-slate-500">
+                <motion.p
+                  className="text-[0.68rem] text-slate-400"
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={{ duration: 0.5, delay: 0.1, ease: [0.2, 0.7, 0.4, 1] }}
+                >
                   Tap the button to reveal direct social links.
-                </p>
+                </motion.p>
               </div>
 
               <div
